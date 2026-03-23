@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>公告通知</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            padding: 30px;
+        }
+        .notice-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .time-area {
+            text-align: right;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        #notice-time {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .content {
+            line-height: 1.8;
+            font-size: 16px;
+            color: #333;
+            min-height: 200px;
+            white-space: pre-line;
+        }
+        .btn-box {
+            text-align: right;
+            margin-top: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            background: #409eff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #66b1ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="notice-box">
+        <div class="title">官方公告</div>
+
+        <div class="time-area">
+            发布时间：
+            <input type="datetime-local" id="notice-time">
+            <button onclick="saveTime()">保存修改时间</button>
+        </div>
+
+        <div class="content" id="notice-content">
+这里是公告正文内容，可以自行编辑修改。
+
+示例公告内容：
+为进一步优化服务，提升使用体验，本站将于近期进行系统维护，维护期间可能会出现短暂访问不稳定情况，请各位用户谅解。
+
+如有疑问可联系相关工作人员，感谢您的支持与配合。
+        </div>
+
+        <div class="btn-box">
+            <button onclick="editContent()">编辑公告内容</button>
+        </div>
+		<img  width="80%" src="d894f5d4e0bc5cc0ce4ccc8bf943af0a.jpg"/ >
+    </div>
+
+    <script>
+        // 页面加载时初始化时间
+        window.onload = function() {
+            // 从本地存储读取时间
+            let saveTime = localStorage.getItem("noticeTime");
+            if (saveTime) {
+                document.getElementById("notice-time").value = saveTime;
+            } else {
+                // 默认当前时间
+                let now = new Date();
+                let isoStr = now.toISOString().slice(0, 16);
+                document.getElementById("notice-time").value = isoStr;
+            }
+        }
+
+        // 保存修改时间到本地缓存
+        function saveTime() {
+            let timeVal = document.getElementById("notice-time").value;
+            if (!timeVal) {
+                alert("请选择时间！");
+                return;
+            }
+            localStorage.setItem("noticeTime", timeVal);
+            alert("公告时间已保存！");
+        }
+
+        // 编辑公告内容（简单 prompt 演示）
+        function editContent() {
+            let oldContent = document.getElementById("notice-content").innerText;
+            let newContent = prompt("修改公告内容", oldContent);
+            if (newContent !== null && newContent.trim() !== "") {
+                document.getElementById("notice-content").innerText = newContent;
+            }
+        }
+    </script>
+
+</body>
+</html>
